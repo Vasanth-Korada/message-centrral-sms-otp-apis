@@ -7,7 +7,7 @@ const myCache = new NodeCache();
 const key = 'authToken';
 const expirationSeconds = 7 * 24 * 60 * 60;
 const apiBaseUrl = "https://api-prod.messagecentral.com"
-const customerId = "C-355EDC25ACCB46E"
+const customerId = process.env.CUSTOMER_ID
 
 function storeStringWithExpiration(key, value, expirationSeconds) {
   const expirationTime = expirationSeconds * 1000;
@@ -28,7 +28,7 @@ const getAuthToken = async () => {
   if (authToken === undefined || authToken === null) {
     const options = {
       method: 'GET',
-      uri: `${apiBaseUrl}/auth/v1/authentication/token?country=IN&customerId=${customerId}&key=VmFzYW50aEAxOTk5&scope=NEW`,
+      uri: `${apiBaseUrl}/auth/v1/authentication/token?country=IN&customerId=${customerId}&key=${process.env.BASE_64_PWD}&scope=NEW`,
       headers: {
         accept: '*/*'
       }
